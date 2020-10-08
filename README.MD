@@ -1,0 +1,1 @@
+Source code for the Ngimu Logger Android app released by Timo Rantalainen tjrantal at gmail dot com. Released with GPL 3.0 license. Check the use instructions from the app. I have successfully recorded 10 NGIMUs' sensors data at 100 Hz with occasional continuous package drops up to 2 s in duration over a 4 min record.

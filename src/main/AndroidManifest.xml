@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="timo.jyu.ngimulogger">
+	<!--Required hardware features, wifi used to record NGIMU sensors-->
+   <uses-feature android:name="android.hardware.wifi"  android:required="true" />
+	
+	<!--Permissions to have a foreground app, ignore battery optimisations, to have a wake lock, and to access the UDP socket-->    
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<!--UDP port listening requires INTERNET permission-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name">
+				
+        <activity android:name=".NgimuLogger"
+        		android:label="@string/app_name"
+        		android:icon="@drawable/ic_launcher"
+        		android:screenOrientation="portrait"
+        		android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!--Declare activities that will be launched from the main page -->
+        <!--Terms of use -->
+        <activity android:name=".TermsOfUse"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName="timo.jyu.ngimulogger.NgimuLogger"
+                  android:theme="@style/Theme.AppCompat.NoActionBar" >
+						<!-- Parent activity meta-data to support 4.0 and lower -->
+						<meta-data
+							android:name="android.support.PARENT_ACTIVITY"
+							android:value="timo.jyu.ngimulogger.NgimuLogger" />
+                  
+        </activity>
+        
+        <!--Declare the foreground service here.-->
+		<service android:name=".service.CaptureService" /><!--NGIMU service-->
+    </application>
+
+</manifest>

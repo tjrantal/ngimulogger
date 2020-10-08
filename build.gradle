@@ -1,0 +1,111 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+	buildToolsVersion "29.0.2"
+	
+    defaultConfig {
+        applicationId "timo.jyu.ngimulogger"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0.0"
+    }
+    
+    lintOptions {
+          checkReleaseBuilds false
+          // Or, if you prefer, you can continue to check for errors in release builds,
+          // but continue the build even when errors are found:
+          //abortOnError false
+      }
+
+    
+    signingConfigs { 
+	/*
+    		debug {
+    			storeFile file("debug.keystore") 
+            storePassword "android"
+            keyAlias "androiddebugkey" 
+            keyPassword "android"
+    		}
+    */  
+	  release { 
+            storeFile file("tjrantal-key.keystore") 
+            storePassword System.getenv("KSTOREPWD")
+            keyAlias "upload_key" 
+            keyPassword System.getenv("KEYPWD")
+        } 
+    }
+    
+    bundle {
+	   language {
+		   enableSplit = true
+	   }
+	   density {
+		   enableSplit = true
+	   }
+	   abi {
+		   enableSplit = true
+	   }
+	}
+    
+    
+    buildTypes {
+		debug {
+            signingConfig signingConfigs.debug 
+        }
+    
+        release {
+            signingConfig signingConfigs.release 
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    
+  	//Debugging
+   tasks.withType(JavaCompile) {
+      configure(options) {
+            options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
+   		}
+   }
+
+}
+
+allprojects {
+    repositories {
+        jcenter()
+		google()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+dependencies {
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+	
+	//Layout, and Actionbar
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.core:core:1.0.0'
+
+}

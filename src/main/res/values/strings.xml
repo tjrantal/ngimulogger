@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NgimuLogger</string>
+	<string name="terminate_app">Terminate App</string>	
+	<string name="disable_battery_optimisation">"Disable battery optimisations for this app"</string>
+	<string name="get_about">About</string>
+	<string name="ep_sensor_capture">"NgimuLogger Capture"</string>
+	<string name="ep_close">"Close"</string>
+</resources>
